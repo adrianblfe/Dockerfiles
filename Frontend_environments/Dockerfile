@@ -25,7 +25,9 @@ RUN npm install -g npm
 RUN npm install -g bower
 RUN npm install -g grunt-cli
 RUN npm install -g coffee-script
-RUN apt-get install -y ruby-full rubygems
+RUN apt-get install -y ruby2.1-dev rubygems build-essential
+RUN gem update --system
+RUN gem install compass
 RUN gem install sass
 RUN npm install -g karma karma-cli jasmine
 RUN npm install -g phantomjs-prebuilt
