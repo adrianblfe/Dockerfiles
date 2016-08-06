@@ -4,7 +4,11 @@ MAINTAINER Adrián Blanco Fernández
 
 EXPOSE 9000:9000
 
-RUN apt-get update && apt-get install -y curl && apt-get install -y openssh-server && apt-get -y install git
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get install -y openssh-server && \
+    apt-get -y install git && \
+    apt-get -y install sudo
 RUN mkdir /var/run/sshd
 RUN echo "root:123" | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -19,26 +23,27 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash && apt-get install -y n
 RUN useradd -ms /bin/bash userDocker
 
 # Update version NPM
-RUN npm install -g npm
+RUN sudo npm install -g npm
 
 # Install tools
 RUN npm install -g bower
 RUN npm install -g grunt-cli
 RUN npm install -g coffee-script
+RUN npm install -g typescript
 RUN apt-get install -y ruby2.1-dev rubygems build-essential
 RUN gem update --system
 RUN gem install compass
 RUN gem install sass
 RUN npm install -g karma karma-cli jasmine
 RUN npm install -g phantomjs-prebuilt
-RUN npm install -g yo generator-fountain-webapp generator-karma generator-angular
+# RUN npm install -g yo generator-fountain-webapp generator-karma generator-angular
 
 RUN npm update -g minimatch@3.0.2
 
 RUN apt-get install -y libfontconfig
 
 # Change to new user
-USER userDocker
-WORKDIR /home/userDocker
+# USER userDocker
+# WORKDIR /home/userDocker
 
 CMD ["/usr/sbin/sshd", "-D"]
