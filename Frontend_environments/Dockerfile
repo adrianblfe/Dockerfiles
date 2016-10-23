@@ -19,7 +19,7 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash && apt-get install -y n
 
 # Create new user
 RUN useradd -ms /bin/bash userDocker && \
-    adduser userDocker sudo
+    echo "userDocker:12345" | chpasswd
 
 # Update version NPM
 RUN npm install -g npm
@@ -36,6 +36,9 @@ RUN npm install -g phantomjs-prebuilt
 RUN npm install -g yo generator-fountain-webapp generator-karma generator-angular
 
 RUN apt-get install -y libfontconfig
+
+# Change permissions npm
+# RUN chown -R userDocker $(npm config get prefix)/{lib/node_modules,bin,share}
 
 EXPOSE 9000
 

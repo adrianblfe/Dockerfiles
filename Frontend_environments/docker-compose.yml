@@ -1,9 +1,10 @@
 frontendenv:
   image: frontend:latest
-  environment:
-    - PROJECT=""
+  # environment:
+  #   - PROJECT=""
   ports:
     - "9000:9000"
     - "35729:35729"
   volumes:
-    - /home/adrian/proyectos/${PROJECT}:/home/userDocker/${PROJECT}
+    - /home/adrian/proyectos/cv_web:/home/userDocker/cv_web
+    # - /home/adrian/proyectos/${PROJECT}:/home/userDocker/${PROJECT}
