@@ -25,21 +25,22 @@ RUN useradd -ms /bin/bash userDocker && \
 RUN npm install -g npm
 
 # Install tools
-RUN npm install -g bower
-RUN npm install -g grunt-cli
+RUN npm install -g lite-server
+RUN npm install -g babel-cli
+RUN npm install -g babel-preset-es2015
+RUN npm install -g webpack
 RUN apt-get install -y ruby2.1-dev rubygems build-essential
 RUN gem update --system
 RUN gem install compass
 RUN gem install sass
 RUN npm install -g karma karma-cli jasmine
 RUN npm install -g phantomjs-prebuilt
-RUN npm install -g yo generator-fountain-webapp generator-karma generator-angular
 
 RUN apt-get install -y libfontconfig
 
 # Change permissions npm
 # RUN chown -R userDocker $(npm config get prefix)/{lib/node_modules,bin,share}
 
-EXPOSE 9000
+EXPOSE 8080
 
 CMD ["/usr/sbin/sshd", "-D"]

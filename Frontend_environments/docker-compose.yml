@@ -3,7 +3,7 @@ frontendenv:
   # environment:
   #   - PROJECT=""
   ports:
-    - "9000:9000"
+    - "8080:8080"
     - "35729:35729"
   volumes:
     - /home/adrian/proyectos/cv_web:/home/userDocker/cv_web
