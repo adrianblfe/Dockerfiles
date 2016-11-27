@@ -6,5 +6,5 @@ frontendenv:
     - "8080:8080"
     - "35729:35729"
   volumes:
-    - /home/adrian/proyectos/cv_web:/home/userDocker/cv_web
+    - /home/adrian/seed_webpack:/home/userDocker/seed_webpack
     # - /home/adrian/proyectos/${PROJECT}:/home/userDocker/${PROJECT}
