@@ -31,18 +31,3 @@ RUN apt-get update && \
 
 
 CMD ["/usr/sbin/sshd", "-D"]
-
-
-# SSH login fix. Otherwise user is kicked off after login
-
-# Install NODE
-
-# Create new user
-
-# Update version NPM
-
-# Install tools
-
-
-# RUN chown -R userDocker $(npm config get prefix)/{lib/node_modules,bin,share}
-# Change permissions npm
