@@ -1,10 +1,7 @@
 frontendenv:
   image: frontend:latest
-  # environment:
-  #   - PROJECT=""
   ports:
     - "8080:8080"
     - "35729:35729"
   volumes:
     - /home/adrian/seed_webpack:/home/userDocker/seed_webpack
-    # - /home/adrian/proyectos/${PROJECT}:/home/userDocker/${PROJECT}

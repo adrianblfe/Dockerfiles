@@ -2,45 +2,47 @@ FROM ubuntu:15.10
 
 MAINTAINER Adrián Blanco Fernández
 
+EXPOSE 8080
+
 RUN apt-get update && \
     apt-get install -y curl && \
     apt-get install -y openssh-server && \
     apt-get -y install git && \
-    apt-get -y install sudo
-RUN mkdir /var/run/sshd
-RUN echo "root:123" | chpasswd
-RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+    apt-get -y install sudo && \
+    mkdir /var/run/sshd && \
+    echo "root:123" | chpasswd && \
+    sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
+    curl -sL https://deb.nodesource.com/setup_6.x | bash && apt-get install -y nodejs && \
+    useradd -ms /bin/bash userDocker && \
+    echo "userDocker:12345" | chpasswd && \
+    npm install -g npm && \
+    npm install -g lite-server && \
+    npm install -g babel-cli && \
+    npm install -g babel-preset-es2015 && \
+    npm install -g webpack && \
+    apt-get install -y ruby2.1-dev rubygems build-essential && \
+    gem update --system && \
+    gem install compass && \
+    gem install sass && \
+    npm install -g karma karma-cli jasmine && \
+    npm install -g phantomjs-prebuilt && \
+    apt-get install -y libfontconfig
 
-# SSH login fix. Otherwise user is kicked off after login
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-# Install NODE
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash && apt-get install -y nodejs
-
-# Create new user
-RUN useradd -ms /bin/bash userDocker && \
-    echo "userDocker:12345" | chpasswd
-
-# Update version NPM
-RUN npm install -g npm
-
-# Install tools
-RUN npm install -g lite-server
-RUN npm install -g babel-cli
-RUN npm install -g babel-preset-es2015
-RUN npm install -g webpack
-RUN apt-get install -y ruby2.1-dev rubygems build-essential
-RUN gem update --system
-RUN gem install compass
-RUN gem install sass
-RUN npm install -g karma karma-cli jasmine
-RUN npm install -g phantomjs-prebuilt
-
-RUN apt-get install -y libfontconfig
-
-# Change permissions npm
-# RUN chown -R userDocker $(npm config get prefix)/{lib/node_modules,bin,share}
-
-EXPOSE 8080
 
 CMD ["/usr/sbin/sshd", "-D"]
+
+
+# SSH login fix. Otherwise user is kicked off after login
+
+# Install NODE
+
+# Create new user
+
+# Update version NPM
+
+# Install tools
+
+
+# RUN chown -R userDocker $(npm config get prefix)/{lib/node_modules,bin,share}
+# Change permissions npm
